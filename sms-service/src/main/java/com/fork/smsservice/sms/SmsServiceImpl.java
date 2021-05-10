@@ -1,10 +1,10 @@
 package com.fork.smsservice.sms;
 
+import com.fork.forkrpcall.config.annotation.FRpcService;
 import com.rpcfork.api.sms.SmsService;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.apache.dubbo.config.annotation.DubboService;
 
-@DubboService
+@FRpcService
 public class SmsServiceImpl implements SmsService {
 
     @DubboReference

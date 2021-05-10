@@ -52,6 +52,14 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <!-- 自制RPC -->
+        <dependency>
+            <groupId>com.fork</groupId>
+            <artifactId>fork-rpc-all</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>

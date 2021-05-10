@@ -1,10 +1,14 @@
 package com.fork.smsservice.sms;
 
 import com.rpcfork.api.sms.SmsService;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 
 @DubboService
 public class SmsServiceImpl implements SmsService {
+
+    @DubboReference
+
     @Override
     public Object send(String phone, String content) {
         System.out.println("短信发送... 目标：" + phone + " , content: " + content);

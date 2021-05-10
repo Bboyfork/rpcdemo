@@ -1,40 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>com.fork.rpc-demo</groupId>
-        <artifactId>rpc-demo</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-    </parent>
-
-    <groupId>com.rpcfork</groupId>
-    <artifactId>api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-
-    <description>forkRPC api</description>
-    <name>api</name>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <groupId>com.study.dubbo</groupId>
+    <artifactId>service-api</artifactId>
+    <version>1.0.0</version>
 
-    <properties>
-        <java.version>11</java.version>
-    </properties>
     <dependencies>
-
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.2.2.RELEASE</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <!-- 因为idea的设定成11 一刷新还是会自动改成1.5 也不知道哪里有些设定编译版本1.5 就李普
+                 导致package不了 就奇怪 索性这里手动设定一下 稳-->
                 <configuration>
-                    <!-- 生成可执行的jar的名字：xxx-exec.jar -->
-                    <!-- 不固定，写成abcd都可以 -->
-                    <classifier>exec</classifier>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -1,5 +1,7 @@
 package com.fork.forkrpcall.remoting.netty;
 
+import com.fork.forkrpcall.remoting.Codec;
+import com.fork.forkrpcall.remoting.Handler;
 import com.fork.forkrpcall.remoting.Server;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -18,7 +20,7 @@ public class NettyServer implements Server {
     EventLoopGroup worker = new NioEventLoopGroup();
 
     @Override
-    public Server start(URI uri) {
+    public Server start(URI uri, Codec codec, Handler handler) {
         try{
             ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.group(boss,worker)
@@ -31,7 +33,10 @@ public class NettyServer implements Server {
                         @Override
                         protected void initChannel(SocketChannel channel) throws Exception {
                             //网络
-                            channel.pipeline().addLast(new NettyHandler());
+                            channel.pipeline().addLast(new NettyHandler(handler));
+
+                            //编解码器  createInstance 来保证每次调用的都不是一个编解码器 来保证线程安全
+                            channel.pipeline().addLast(new NettyCodec(codec.createInstance()));
                         }
                     });
             ChannelFuture future = bootstrap.bind().sync();

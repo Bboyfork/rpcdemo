@@ -5,7 +5,7 @@ package com.fork.forkrpcall.remoting;
  * */
 public interface Handler {
 
-    void onReceive(TrpcChannel trpcChannel,Object message) throws Exception;
+    void onReceive(FRpcChannel trpcChannel, Object message) throws Exception;
 
-    void onWrite(TrpcChannel trpcChannel,Object message) throws Exception;
+    void onWrite(FRpcChannel trpcChannel, Object message) throws Exception;
 }

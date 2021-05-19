@@ -27,19 +27,19 @@ public class Netty4TransporterTest {
                         return objects;
                     }
 
-//                    @Override
-//                    public Codec createInstance() {
-//                        return this;
-//                    }
+                    @Override
+                    public Codec createInstance() {
+                        return this;
+                    }
                 },
                 new Handler() {
                     @Override
-                    public void onReceive(TrpcChannel trpcChannel, Object message) throws Exception {
+                    public void onReceive(FRpcChannel trpcChannel, Object message) throws Exception {
                         System.out.println(message);
                     }
 
                     @Override
-                    public void onWrite(TrpcChannel trpcChannel, Object message) throws Exception {
+                    public void onWrite(FRpcChannel trpcChannel, Object message) throws Exception {
 
                     }
                 });

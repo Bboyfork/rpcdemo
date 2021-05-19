@@ -3,6 +3,9 @@ package com.fork.forkrpcall.rpc;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * RPC调用
+ * */
 public class RpcInvocation {
     private static final long serialVersionUID = -4355285085441097045L;
     static AtomicLong SEQ = new AtomicLong();

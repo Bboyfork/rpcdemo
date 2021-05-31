@@ -1,7 +1,7 @@
 package com.fork.forkrpcall.config.spring;
 
 import com.fork.forkrpcall.config.ProtocolConfig;
-import com.fork.forkrpcall.config.RegintryConfig;
+import com.fork.forkrpcall.config.RegistryConfig;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanNameGenerator;
@@ -41,7 +41,7 @@ public class FRpcConfiguration implements ImportBeanDefinitionRegistrar {
 
         //还有 RegintryConfig
 
-        beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(RegintryConfig.class);
+        beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(RegistryConfig.class);
         for (Field field:ProtocolConfig.class.getDeclaredFields()) {
 
             String value = environment.getProperty("frpc.registry." + field.getName());

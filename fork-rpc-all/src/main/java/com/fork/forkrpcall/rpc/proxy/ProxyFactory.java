@@ -10,6 +10,8 @@ import java.lang.reflect.Proxy;
  * Proxy工厂 返回一个invoke接口的实现
  * */
 public class ProxyFactory {
+    //获取代理与获取执行
+    //
     public static Object getProxy(Invoker invoker,Class<?>[] interfaces){
         return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),interfaces,new InvokerInvocationHandler(invoker));
     }

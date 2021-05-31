@@ -3,7 +3,7 @@ package com.fork.forkrpcall.config;
 /**
  * @author bboy_fork
  * */
-public class RegintryConfig {
+public class RegistryConfig {
     private String address;
     private String userName;
     private String password;

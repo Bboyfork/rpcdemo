@@ -12,6 +12,9 @@ import java.util.ServiceLoader;
 public class FRpcPostProcesser implements ApplicationContextAware, InstantiationAwareBeanPostProcessor {
     ApplicationContext applicationContext;
 
+    /**
+     * 继承它来获取上下文对象
+     * */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
@@ -31,10 +34,7 @@ public class FRpcPostProcesser implements ApplicationContextAware, Instantiation
             String transporterName = protocolConfig.getTransporter();
 
 
-
-
         }
-
 
 
 

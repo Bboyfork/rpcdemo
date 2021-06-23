@@ -1,4 +1,4 @@
-package com.fork.forkrpcall.remoting;
+package com.fork.forkrpcall.tools;
 
 /**
  * 此对象代表一个客户端连接

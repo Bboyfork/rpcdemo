@@ -1,19 +1,22 @@
-package com.fork.forkrpcall.remoting;
+package com.fork.forkrpcall;
 
-
-import com.fork.forkrpcall.remoting.netty.NettyTransporter;
+import com.fork.forkrpcall.tools.Codec;
+import com.fork.forkrpcall.tools.FRpcChannel;
+import com.fork.forkrpcall.tools.Handler;
+import com.fork.forkrpcall.tools.netty.NettyTransporter;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Netty4TransporterTest {
+public class remoting {
     public static void main(String[] args) throws URISyntaxException {
         new NettyTransporter().start(new URI("TRPP://127.0.0.1:8080"),
                 new Codec() {
                     @Override
                     public byte[] encode(Object msg) throws Exception {
+                        System.out.println("encode");
                         return new byte[0];
                     }
 
@@ -35,11 +38,13 @@ public class Netty4TransporterTest {
                 new Handler() {
                     @Override
                     public void onReceive(FRpcChannel trpcChannel, Object message) throws Exception {
+                        System.out.println("handler on Receive中");
                         System.out.println(message);
                     }
 
                     @Override
                     public void onWrite(FRpcChannel trpcChannel, Object message) throws Exception {
+                        System.out.println("handler on write中");
 
                     }
                 });

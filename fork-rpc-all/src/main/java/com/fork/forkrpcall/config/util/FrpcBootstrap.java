@@ -1,5 +1,6 @@
 package com.fork.forkrpcall.config.util;
 
+import com.fork.forkrpcall.common.util.SpiUtils;
 import com.fork.forkrpcall.config.ProtocolConfig;
 import com.fork.forkrpcall.config.ReferenceConfig;
 import com.fork.forkrpcall.config.RegistryConfig;
@@ -41,13 +42,13 @@ public class FrpcBootstrap {
                 protocol.export(exportUri, invoker);
 
                 // 注册到中心
-                for (RegistryConfig registryConfig : serviceConfig.getRegistryConfigs()) {
-                    URI registryUri = new URI(registryConfig.getAddress());
-                    RegistryService registryService =
-                            (RegistryService) SpiUtils.getServiceImpl(registryUri.getScheme(), RegistryService.class);
-                    registryService.init(registryUri);
-                    registryService.register(exportUri);
-                }
+//                for (RegistryConfig registryConfig : serviceConfig.getRegistryConfigs()) {
+//                    URI registryUri = new URI(registryConfig.getAddress());
+//                    RegistryService registryService =
+//                            (RegistryService) SpiUtils.getServiceImpl(registryUri.getScheme(), RegistryService.class);
+//                    registryService.init(registryUri);
+//                    registryService.register(exportUri);
+//                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,11 +60,11 @@ public class FrpcBootstrap {
      */
     public static Object getReferenceBean(ReferenceConfig referenceConfig) {
         try {
-            // 根据服务 通过注册中心，找到服务提供者实例
-            ClusterInvoker clusterInvoker = new ClusterInvoker(referenceConfig);
-            // 代理对象
-            Object proxy = ProxyFactory.getProxy(clusterInvoker, new Class[]{referenceConfig.getService()});
-            return proxy;
+//            // 根据服务 通过注册中心，找到服务提供者实例
+//            ClusterInvoker clusterInvoker = new ClusterInvoker(referenceConfig);
+//            // 代理对象
+//            Object proxy = ProxyFactory.getProxy(clusterInvoker, new Class[]{referenceConfig.getService()});
+//            return proxy;
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,8 +1,8 @@
-package com.fork.forkrpcall.remoting.netty;
+package com.fork.forkrpcall.tools.netty;
 
-import com.fork.forkrpcall.remoting.Codec;
-import com.fork.forkrpcall.remoting.Handler;
-import com.fork.forkrpcall.remoting.Server;
+import com.fork.forkrpcall.tools.Codec;
+import com.fork.forkrpcall.tools.Handler;
+import com.fork.forkrpcall.tools.Server;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -20,7 +20,7 @@ public class NettyServer implements Server {
     EventLoopGroup worker = new NioEventLoopGroup();
 
     @Override
-    public Server start(URI uri, Codec codec, Handler handler) {
+    public void start(URI uri, Codec codec, Handler handler) {
         try{
             ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.group(boss,worker)
@@ -32,11 +32,11 @@ public class NettyServer implements Server {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel channel) throws Exception {
-                            //网络
-                            channel.pipeline().addLast(new NettyHandler(handler));
 
                             //编解码器  createInstance 来保证每次调用的都不是一个编解码器 来保证线程安全
                             channel.pipeline().addLast(new NettyCodec(codec.createInstance()));
+                            //网络
+                            channel.pipeline().addLast(new NettyHandler(handler));
                         }
                     });
             ChannelFuture future = bootstrap.bind().sync();
@@ -44,8 +44,5 @@ public class NettyServer implements Server {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
-        return null;
     }
 }

@@ -1,6 +1,6 @@
-package com.fork.forkrpcall.remoting.netty;
+package com.fork.forkrpcall.tools.netty;
 
-import com.fork.forkrpcall.remoting.Handler;
+import com.fork.forkrpcall.tools.Handler;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -16,7 +16,5 @@ public class NettyHandler extends ChannelDuplexHandler {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         handler.onReceive(new NettyChannel(ctx.channel()),msg);
-
-
     }
 }

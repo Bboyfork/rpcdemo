@@ -1,5 +1,6 @@
 package com.fork.forkrpcall.rpc.protocol.frpc.codec;
 
+import com.fork.forkrpcall.serialize.Serialization;
 import com.fork.forkrpcall.tools.Codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -8,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 和netty中的 NettyCodec 的简单实现不同，
+ * 此处完整的定义了消息的规则，包括头部、长度、以及粘包拆包的实现。
  * */
 public class FrpcCodec implements Codec {
 
@@ -16,6 +18,8 @@ public class FrpcCodec implements Codec {
      * 设定了一系列的规则，包括：特殊请求头部： 0xdabb      业务数据长度  INT 4字节         业务数据：RpcInvocation 对象序列化
      * */
     public final static byte[] MAGIC = new byte[]{(byte) 0xda, (byte) 0xbb};
+
+
     /**
      * 协议头部长度
      */
@@ -40,9 +44,34 @@ public class FrpcCodec implements Codec {
         ByteBuf byteBuf = Unpooled.buffer();
         int tempMsgSize = tempMsg.readableBytes();
         if(tempMsgSize>0){
-            byteBuf.writeBytes()
+            byteBuf.writeBytes(tempMsg);
+            byteBuf.writeBytes(message);
+        }else {
+            byteBuf.writeBytes(message);
         }
 
+        for(;;){
+            //如果数据太少，不够一个头部，等待处理。
+            if(HEADER_LEN >= byteBuf.readableBytes()){
+                tempMsg.clear();
+                tempMsg.writeBytes(byteBuf);
+                return out;
+            }
+
+            //数据够，那就处理：
+           byte[] magic = new byte[2];
+            byteBuf.readBytes(magic);
+            for(;;){
+                //匹配头部，  得从头开始读数据嘛。。。
+                if(magic[0] != MAGIC[0] || magic[1] != MAGIC[1]){
+                    if(byteBuf.readableBytes() == 0){ //读到剩余为0了。 数据读完都没发现正确的头部。就gg
+                        tempMsg.clear();
+                        tempMsg.writeByte(magic[1]);
+                        return out;
+                    }
+                }
+            }
+        }
 
         return out;
     }
@@ -50,7 +79,28 @@ public class FrpcCodec implements Codec {
     @Override
     public Codec createInstance() {
         FrpcCodec frpcCodec = new FrpcCodec();
+        frpcCodec.setDecodeType(this.decodeType);
+        frpcCodec.setSerialization(this.serialization);
+        return frpcCodec;
+    }
 
-        return null;
+    Class decodeType;
+
+    Serialization serialization;
+
+    public Class getDecodeType() {
+        return decodeType;
+    }
+
+    public void setDecodeType(Class decodeType) {
+        this.decodeType = decodeType;
+    }
+
+    public Serialization getSerialization() {
+        return serialization;
+    }
+
+    public void setSerialization(Serialization serialization) {
+        this.serialization = serialization;
     }
 }

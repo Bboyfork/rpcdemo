@@ -1,5 +1,6 @@
 package com.fork.forkrpcall.rpc.protocol.frpc.codec;
 
+import com.fork.forkrpcall.common.util.ByteUtil;
 import com.fork.forkrpcall.serialize.Serialization;
 import com.fork.forkrpcall.tools.Codec;
 import io.netty.buffer.ByteBuf;
@@ -69,7 +70,19 @@ public class FrpcCodec implements Codec {
                         tempMsg.writeByte(magic[1]);
                         return out;
                     }
+                    magic[0] = magic[1];
+                    magic[1] = byteBuf.readByte();
+                }else {
+                    break;
                 }
+            }
+
+            byte[] lengthBytes = new byte[4];
+            byteBuf.readBytes(lengthBytes);
+            int length = ByteUtil.Bytes2Int_BE(lengthBytes);
+
+            if(byteBuf.readableBytes() < length){
+
             }
         }
 

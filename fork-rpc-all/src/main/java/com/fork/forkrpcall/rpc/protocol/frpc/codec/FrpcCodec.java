@@ -1,8 +1,8 @@
 package com.fork.forkrpcall.rpc.protocol.frpc.codec;
 
 import com.fork.forkrpcall.common.util.ByteUtil;
-import com.fork.forkrpcall.serialize.Serialization;
-import com.fork.forkrpcall.tools.Codec;
+import com.fork.forkrpcall.common.serialize.Serialization;
+import com.fork.forkrpcall.remoting.Codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
@@ -60,6 +60,7 @@ public class FrpcCodec implements Codec {
             }
 
             //数据够，那就处理：
+            //解析数据：     检查关键字
            byte[] magic = new byte[2];
             byteBuf.readBytes(magic);
             for(;;){
@@ -77,16 +78,28 @@ public class FrpcCodec implements Codec {
                 }
             }
 
+            //一个int 4字节  这里是我们设定的， 长度位
             byte[] lengthBytes = new byte[4];
             byteBuf.readBytes(lengthBytes);
             int length = ByteUtil.Bytes2Int_BE(lengthBytes);
 
             if(byteBuf.readableBytes() < length){
-
+                tempMsg.clear();
+                tempMsg.writeBytes(magic);
+                tempMsg.writeBytes(lengthBytes);
+                tempMsg.writeBytes(byteBuf);
+                return out;
             }
+
+            byte[] body = new byte[length];
+            byteBuf.readBytes(body);
+
+            //序列化
+            Object o = getSerialization().deserialize(body,decodeType);
+            out.add(o);
         }
 
-        return out;
+
     }
 
     @Override

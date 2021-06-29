@@ -1,8 +1,8 @@
-package com.fork.forkrpcall.tools.netty;
+package com.fork.forkrpcall.remoting.netty;
 
-import com.fork.forkrpcall.tools.Codec;
-import com.fork.forkrpcall.tools.Handler;
-import com.fork.forkrpcall.tools.Server;
+import com.fork.forkrpcall.remoting.Codec;
+import com.fork.forkrpcall.remoting.Handler;
+import com.fork.forkrpcall.remoting.Server;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

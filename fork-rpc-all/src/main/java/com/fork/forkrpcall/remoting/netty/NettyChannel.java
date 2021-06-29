@@ -1,6 +1,6 @@
-package com.fork.forkrpcall.tools.netty;
+package com.fork.forkrpcall.remoting.netty;
 
-import com.fork.forkrpcall.tools.FRpcChannel;
+import com.fork.forkrpcall.remoting.FRpcChannel;
 import io.netty.channel.Channel;
 
 public class NettyChannel implements FRpcChannel {

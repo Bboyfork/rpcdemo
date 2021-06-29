@@ -1,9 +1,7 @@
-package com.fork.forkrpcall;
+package com.fork.forkrpcall.remoting;
 
-import com.fork.forkrpcall.tools.Codec;
-import com.fork.forkrpcall.tools.FRpcChannel;
-import com.fork.forkrpcall.tools.Handler;
-import com.fork.forkrpcall.tools.netty.NettyTransporter;
+import com.fork.forkrpcall.remoting.netty.NettyTransporter;
+
 
 import java.net.URI;
 import java.net.URISyntaxException;

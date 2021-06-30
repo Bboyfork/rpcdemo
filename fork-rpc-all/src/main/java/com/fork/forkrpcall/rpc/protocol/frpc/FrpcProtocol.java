@@ -41,6 +41,11 @@ public class FrpcProtocol implements Protocol {
 
     @Override
     public Invoker refer(URI consumerUri) {
+        //找到序列化
+        //编解码器
+        //收到响应 处理
+        //连接 —— 长连接
+        //创建一个invoker 通过网络连接发送数据
         return null;
     }
 }

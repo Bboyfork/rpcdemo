@@ -20,7 +20,7 @@ public @interface FRpcReference {
     //暂时注释 看看好不好使
 //    Class<?> interfaceClass() default void.class;
 
-
+    String loadbalance() default "RandomLoadBalance";
 
 
 }

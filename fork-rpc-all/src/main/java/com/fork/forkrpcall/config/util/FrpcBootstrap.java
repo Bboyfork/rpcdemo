@@ -12,6 +12,10 @@ import com.fork.forkrpcall.rpc.proxy.ProxyFactory;
 import java.net.NetworkInterface;
 import java.net.URI;
 
+/**
+ * 被单提出来的 引导类
+ * 作用就是 按照传入的config 创建代理、暴露服务等。
+ * */
 public class FrpcBootstrap {
     // 暴露service服务
     public static void export(ServiceConfig serviceConfig) {
